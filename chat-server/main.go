@@ -19,18 +19,19 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
-	routesConfig()
+	initAndConfigRoutes()
 	fmt.Printf("Listening on %s\n", PORT)
 	http.ListenAndServe(PORT, nil)
 }
 
-func routesConfig() {
+func initAndConfigRoutes() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, `Already Home`)
 	})
+	http.HandleFunc("/chatroom", serveWs)
 }
 
-// defiine reader to listen for new messages sent to ws endpoint
+// define reader to listen for new messages sent to ws endpoint
 func reader(conn *websocket.Conn) {
 	for {
 		// read message
@@ -50,3 +51,20 @@ func reader(conn *websocket.Conn) {
 		}
 	}
 }
+
+// define WebSocket endpoint
+func serveWs(w http.ResponseWriter, r *http.Request) {
+	// console host address
+	fmt.Println(r.Host)
+
+	// upgrade to websocket connection
+	ws, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// openly listen for incoming messages
+	reader(ws)
+}
+
+

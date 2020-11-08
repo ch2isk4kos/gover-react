@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gorilla/websocket"
+	"github.com/ch2isk4kos/gover-react/pkg/websocket"
 )
 
 var PORT string = ":3000"
@@ -29,27 +29,6 @@ func initAndConfigRoutes() {
 		fmt.Fprintf(w, `Already Home`)
 	})
 	http.HandleFunc("/chatroom", serveWs)
-}
-
-// define reader to listen for new messages sent to ws endpoint
-func reader(conn *websocket.Conn) {
-	for {
-		// read message
-		message, p, err := conn.ReadMessage()
-		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		// console message
-		fmt.Println(string(p))
-
-		// write message
-		if err := conn.WriteMessage(message, p); err != nil {
-			log.Println(err)
-			return
-		}
-	}
 }
 
 // define WebSocket endpoint

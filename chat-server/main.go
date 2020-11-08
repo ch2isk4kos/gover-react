@@ -16,19 +16,29 @@ func main() {
 }
 
 func initAndConfigRoutes() {
-	http.HandleFunc("/chatroom", serveWs)
+	pool := websocket.NewPool()
+	go pool.Start()
+
+	http.HandleFunc("/chatroom", func(w http.ResponseWriter, r *http.Request) {
+		serveWs(pool, w, r)
+	}) 
 }
 
 // define WebSocket endpoint
-func serveWs(w http.ResponseWriter, r *http.Request) {
+func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 	// upgrade to websocket connection
-	ws, err := websocket.Upgrade(w, r)
+	conn, err := websocket.Upgrade(w, r)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(w, "%v\n", err)
 	}
 
-	go websocket.Writer(ws)
-	websocket.Reader(ws)
+	client := &websocket.Client{
+		Conn: conn,
+		Pool: pool,
+	}
+
+	pool.Register <- client
+	client.Read()
 }
 
 

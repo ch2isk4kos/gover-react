@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ch2isk4kos/gover-react/pkg/websocket"
+	"github.com/ch2isk4kos/gover-react/pkg/websocket.go"
 )
 
 var PORT string = ":3000"

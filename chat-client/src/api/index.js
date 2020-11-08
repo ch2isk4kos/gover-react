@@ -1,7 +1,7 @@
 const socket = new WebSocket("ws://localhost:3000/chatroom");
 
 // connect to WebSocket endpoint and listen for events
-let connect = () => {
+let connect = callback => {
   console.log("Connecting...");
 
   socket.onopen = () => {
@@ -10,6 +10,7 @@ let connect = () => {
 
   socket.onmessage = msg => {
     console.log(msg);
+    callback(msg);
   };
 
   socket.onclose = event => {

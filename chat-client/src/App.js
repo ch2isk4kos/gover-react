@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React from 'react';
+import Header from './Header';
+import { connect, sendMessage } from './api/index.js';
 import './App.css';
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    
+    connect();
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  handleSubmission() {
+    console.log("Sending Message from App.js");
+    sendMessage("This the message that I sent.")
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <button onClick={this.handleSubmission}>Send</button>
+      </div>
+    );
+  }
 }
 
 export default App;

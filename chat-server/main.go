@@ -3,9 +3,19 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 var PORT string = ":3000"
+
+// create uprader to read/write buffer size
+var upgrader = websocket.Upgrader{
+	ReadBufferSize: 1024,
+	WriteBufferSize: 1024,
+	// check origin of connection to accept request from React
+	CheckOrigin: func(r *http.Request) bool { return true },
+}
 
 func main() {
 	routesConfig()

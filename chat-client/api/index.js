@@ -21,7 +21,7 @@ let connect = () => {
   };
 };
 
-// send messages to react client
+// send messages to WebSocket endpoint
 let sendMessage = msg => {
   console.log("Sending Message: ", msg);
   socket.send(msg);

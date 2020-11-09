@@ -4,7 +4,7 @@ import './Header.css';
 const Header = () => {
   return (
     <div className="Header">
-      <h2>Gover React</h2>
+      <h2>GOver React</h2>
     </div>
   )
 }

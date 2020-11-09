@@ -11,7 +11,7 @@ class ChatRoom extends React.Component {
     
     return (
       <div className="Messages">
-        <h2>Messages</h2>
+        <h2>Chatroom</h2>
         { messages }
       </div>
     )

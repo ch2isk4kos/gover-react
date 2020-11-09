@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import Messages from './Messages';
+import ChatRoom from './ChatRoom';
 import { connect, sendMessage } from './api/index.js';
 import './App.css';
 class App extends React.Component {
@@ -32,7 +32,7 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <button onClick={this.handleSubmission}>Send</button>
-        <Messages messages={this.state.messages} />
+        <ChatRoom messages={this.state.messages} />
       </div>
     );
   }

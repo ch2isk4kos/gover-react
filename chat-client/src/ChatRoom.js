@@ -1,7 +1,7 @@
 import React from 'react';
-import './Messages.css';
+import './ChatRoom.css';
 
-class Messages extends React.Component {
+class ChatRoom extends React.Component {
   render() {
     const messages = this.props.messages.map((msg, idx) => {
       return <p key={idx}>{ msg.data }</p>
@@ -19,4 +19,4 @@ class Messages extends React.Component {
 
 }
 
-export default Messages;
+export default ChatRoom;

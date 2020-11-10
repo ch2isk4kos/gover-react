@@ -7,7 +7,7 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    // connect();
+    connect();
 
     this.state = {
       messages: [],
@@ -17,20 +17,26 @@ class App extends React.Component {
   componentDidMount() {    
     connect((msg) => {
       console.log("New Message...");
+      
       this.setState(prevState => ({
-        messages: [...this.state.messages, msg]
+        messages: [...prevState.messages, msg]
       }))
+
     });
   };
 
-  handleSubmission = (msg) => {
-      console.log("Sending Message from App.js");
-      console.log("handleSub event: ")
-      this.setState(prevState => ({
-          messages: [...this.state.messages, msg]
-        }))
-      sendMessage(msg);
-    }
+  // sendMessaage = (event) => {
+  //   if (event.charCode === 13) {
+  //     sendMessage(event.target.value)
+  //     event.target.value = "";
+  //   }
+  // }
+
+  // handleSubmission = (event) => {
+  //     console.log("Sending Message from App.js");
+  //     console.log("handleSub event: ", event)
+  //     sendMessage(event.target.);
+  //   }
 
   render() {
     return (
@@ -38,7 +44,7 @@ class App extends React.Component {
         <Header />
         {/* <button onSubmit={this.handleSubmission}>Send</button> */}
         <ChatRoom messages={this.state.messages} />
-        <MessageForm sendMessage={this.handleSubmission} connect={connect} />
+        <MessageForm sendMessage={sendMessage }/>
       </div>
     );
   }

@@ -1,38 +1,44 @@
 import React from 'react';
 import Header from './Header';
 import ChatRoom from './ChatRoom';
+import MessageForm from './MessageForm';
 import { connect, sendMessage } from './api/index.js';
 import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props)
-    connect();
+    // connect();
 
     this.state = {
-      messages: []
+      messages: [],
     }
   };
 
-  componentDidMount() {
+  componentDidMount() {    
     connect((msg) => {
       console.log("New Message...");
       this.setState(prevState => ({
         messages: [...this.state.messages, msg]
-      }), console.log(this.state))
+      }))
     });
   };
 
-  handleSubmission() {
-    console.log("Sending Message from App.js");
-    sendMessage("This is the message that I sent.")
-  }
+  handleSubmission = (msg) => {
+      console.log("Sending Message from App.js");
+      console.log("handleSub event: ")
+      this.setState(prevState => ({
+          messages: [...this.state.messages, msg]
+        }))
+      sendMessage(msg);
+    }
 
   render() {
     return (
       <div className="App">
         <Header />
-        <button onClick={this.handleSubmission}>Send</button>
+        {/* <button onSubmit={this.handleSubmission}>Send</button> */}
         <ChatRoom messages={this.state.messages} />
+        <MessageForm sendMessage={this.handleSubmission} connect={connect} />
       </div>
     );
   }

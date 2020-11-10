@@ -3,8 +3,9 @@ import './ChatRoom.css';
 
 class ChatRoom extends React.Component {
   render() {
-    const messages = this.props.messages.map((msg, idx) => {
-      return <p key={idx}>{ msg.data }</p>
+    const msgs = this.props.messages.map((msg, index) => {
+      console.log("messages[msg]:", msg)
+      return <p key={index}>{ msg.data }</p>
     })
 
     console.log("Messages props: ", this.props);
@@ -12,7 +13,7 @@ class ChatRoom extends React.Component {
     return (
       <div className="Messages">
         <h2>Chatroom</h2>
-        { messages }
+        { msgs }
       </div>
     )
   }
